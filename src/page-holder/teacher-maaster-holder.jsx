@@ -18,8 +18,8 @@ import {
   import { formatDate } from '@/hooks/formatDate.js'
   dayjs.extend(customParseFormat)
   
-  const Add = React.lazy(() => import('../page-sections/branch/add'))
-  const Edit = React.lazy(() => import('../page-sections/branch/edit'))
+  const Add = React.lazy(() => import('../page-sections/teacher/add'))
+  const Edit = React.lazy(() => import('../page-sections/teacher/edit'))
   
   export default function TeacherMasterHolder () {
     const navigate = useNavigate()

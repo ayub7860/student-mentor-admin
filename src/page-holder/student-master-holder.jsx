@@ -18,8 +18,8 @@ import {
   import { formatDate } from '@/hooks/formatDate.js'
   dayjs.extend(customParseFormat)
   
-  const Add = React.lazy(() => import('../page-sections/branch/add'))
-  const Edit = React.lazy(() => import('../page-sections/branch/edit'))
+  const Add = React.lazy(() => import('../page-sections/student/add'))
+  const Edit = React.lazy(() => import('../page-sections/student/edit'))
   
   export default function TeacherMasterHolder () {
     const navigate = useNavigate()
@@ -269,7 +269,7 @@ import {
           <CardHeader className='mb-4 p-3' color={sidenavColor} variant='gradient'>
             <div className='flex flex-col md:flex-row justify-between'>
               <Typography color='white' variant='h6'>
-                Teacher Master
+                Student Master
               </Typography>
               <div className='flex flex-col md:flex-row gap-2'>
                 <div className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800 rounded-md border-0'>
