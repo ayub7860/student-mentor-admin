@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+:root {
+    --scrollbar-track-light: #f1f1f1;
+    --scrollbar-track-dark: #37474f;
+    --select-light: #ffffff;
+    --select-dark: #303e42;
+    --select-background-light: #dad9d9;
+    --select-background-dark: #100f0f;
+    --select-border-light: #dedede;
+    --select-border-dark: #29373b;
+    --select-text-light: #303e42;
+    --select-text-dark: #ffffff;
+}
+
+.dark {
+    --scrollbar-track-color: var(--scrollbar-track-dark);
+    --select-color: var(--select-dark);
+    --select-background-color: var(--select-background-dark);
+    --select-border: var(--select-border-dark);
+    --select-text-color: var(--select-text-dark);
+}
+
+.light-theme {
+    --scrollbar-track-color: var(--scrollbar-track-light);
+    --select-color: var(--select-light);
+    --select-background-color: var(--select-background-light);
+    --select-border: var(--select-border-light);
+    --select-text-color: var(--select-text-light);
+}
+
+/* Apply scrollbar track color */
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #a9a9a9;
+    border-radius: 4px;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+.Toastify__toast-container {
+    z-index: 10000;
+}
+
+.custom-select__container {
+    z-index: 10000;
+    color: var(--select-text-color) !important;
+}
+
+.custom-select__control {
+    border-color: var(--select-border) !important;
+    z-index: 10000;
+}
+
+.custom-select__value-container {
+    background-color: var(--select-color);
+}
+
+.custom-select__input-container {
+    color: var(--select-text-color) !important;
+}
+
+.custom-select__indicators {
+    background-color: var(--select-color);
+}
+
+.custom-select__menu {
+    font-size: 0.7rem;
+    background-color: var(--select-color) !important;
+    color: var(--select-text-color) !important;
+    z-index: 10000;
+}
+
+.custom-select__option {
+    font-size: 0.7rem;
+    background-color: var(--select-color) !important;
+    color: var(--select-text-color) !important;
+    z-index: 10000;
+}
+
+.custom-select__option:hover {
+    font-size: 0.7rem;
+    background-color: var(--select-background-color) !important;
+    color: var(--select-text-color) !important;
+}
+
+.custom-select__option--focused {
+    font-size: 0.7rem;
+    background-color: var(--select-background-color) !important;
+    color: var(--select-text-color) !important;
+}
+
+/* Styles for the progress bar container */
+.progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3; /* Set the background color of the progress bar container */
+    height: 4px;
+    overflow: hidden; /* Hide overflow to keep the rainbow colors within the container */
+    border-radius: 2px;
+}
+
+/* Styles for the animated progress bar */
+.progress-bar {
+    height: 100%;
+    width: 100%; /* Initially set the width to 100% */
+    background: linear-gradient(to right,
+    red, orange, yellow, green, blue, indigo, violet);
+    background-size: 1400% 100%; /* 7 colors in the gradient, so background-size is set to 7 * 100% = 700% */
+    animation: progress-animation 5s infinite linear; /* Animation lasts for 5 seconds and loops infinitely */
+}
+
+/* Keyframes for the animation */
+@keyframes progress-animation {
+    0% {
+        background-position: 0 0; /* Start position of the rainbow gradient */
+    }
+    100% {
+        background-position: 100% 0; /* End position of the rainbow gradient */
+    }
+}
+
+/* Styles for the loading text */
+.loading-text {
+    font-size: 16px;
+    font-weight: normal;
+    background: linear-gradient(to right,
+    red, orange, green, blue, indigo, violet);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: rainbow-text-animation 5s infinite alternate-reverse;
+}
+
+/* Styles for the loading text */
+.loading-text-dashboard {
+    font-size: 24px;
+    font-weight: normal;
+    background: linear-gradient(to right,
+    red, orange, green, blue, indigo, violet);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: rainbow-text-animation 5s infinite alternate-reverse;
+}
+
+/* Keyframes for the rainbow text animation */
+@keyframes rainbow-text-animation {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.scroll-to-top {
+    background-color: white;
+    right: 40px;
+    bottom: 40px;
+    position: fixed;
+    z-index: 2;
+    cursor: pointer;
+    border-radius: 7px;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 9px 25px 0 rgba(132, 128, 177, 0.28);
+    border: none;
+}
+
+.scroll-to-top:active {
+    transform: matrix(0.95, 0, 0, 0.95, 0, 0);
+}

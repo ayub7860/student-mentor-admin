@@ -1,0 +1,1 @@
+import dayjs from"dayjs";import customParseFormat from"dayjs/plugin/customParseFormat";dayjs.extend(customParseFormat);export const formatDate=a=>dayjs(a,{format:"DD MM YYYY, h:mm a"}).format("DD MMM YYYY, h:mm a");

@@ -1,0 +1,1 @@
+import axios from"axios";import{handleError}from"@/hooks/errorHandling";export const fetchData=async(r,t="light")=>{try{const t=await axios.get(r);return 200===t.status?t.data:null}catch(r){return handleError(r,t),null}};

@@ -1,0 +1,7 @@
+dist/
+node_modules/
+public/
+/src/hooks/
+/src/widgets/components/class-names.jsx
+/src/widgets/components/NetworkStatusWarning.jsx
+/scripts
