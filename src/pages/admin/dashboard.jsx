@@ -11,17 +11,17 @@ export function Dashboard () {
   const [controller, dispatch] = useMaterialTailwindController()
   const { sidenavColor, theme } = controller
   const [formData, setFormData ] = useState('');
-  // useEffect(() => {
-  //   document.title = 'Aditya-Anangha | Dashboard'
-  //   AOS.init({
-  //     duration: 1200
-  //   })
-  //   Promise.all([
-  //     fetchData(`${import.meta.env.VITE_API_URL}/api/adminProfileApi/getMyProfile`, theme),
-  //   ]).then(([ staffData ]) => {
-  //     setFormData(staffData);
-  //   });
-  // }, [])
+  useEffect(() => {
+    document.title = 'Mentor | Dashboard'
+    AOS.init({
+      duration: 1200
+    })
+    // Promise.all([
+    //   fetchData(`${import.meta.env.VITE_API_URL}/api/adminProfileApi/getMyProfile`, theme),
+    // ]).then(([ staffData ]) => {
+    //   setFormData(staffData);
+    // });
+  }, [])
 
   return (
 

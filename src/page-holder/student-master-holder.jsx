@@ -45,7 +45,7 @@ import {
     })
   
     React.useEffect(() => {
-      document.title = 'Mentor | Teacher Master'
+      document.title = 'Mentor | Student Master'
       getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
     }, [])
   
@@ -67,7 +67,7 @@ import {
     const refreshTableData = () => { getTableRecordByPage(1, tableProp.perPage, tableProp.orderBy, tableProp.orderDirection, tableProp.searchValue) }
     const getTableRecordByPage = (currentPage, perPage, orderBy, orderDirection, searchValue) => {
       axios
-        .post(`${import.meta.env.VITE_API_URL}/api/adminApi/getTableTeacher`, {
+        .post(`${import.meta.env.VITE_API_URL}/api/adminApi/getTableStudent`, {
           currentPage,
           perPage,
           orderBy,
@@ -119,7 +119,7 @@ import {
     }
   
     const changeStatus = (id, value) => {
-      const url = `${import.meta.env.VITE_API_URL}/api/adminApi/changeStatusTeacher`
+      const url = `${import.meta.env.VITE_API_URL}/api/adminApi/changeStatusStudent`
       axios.post(url, { id, statusValue: value })
         .then(({ status }) => {
           if (status === 200) {
@@ -287,7 +287,7 @@ import {
                         color='white' size='sm' variant='outlined' onClick={event => { event.preventDefault(); setIsAddOpen(true) }}
                     >
                       <i className='fas fa-plus self-center pr-1' />
-                      ADD TEACHER
+                      ADD STUDENT
                     </Button>
                     <>
                         <Button

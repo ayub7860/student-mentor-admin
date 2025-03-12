@@ -76,7 +76,7 @@ export default function Edit (props) {
 
   const submitData = async () => {
     const validationRules = [
-      { field: 'name', required: true, message: 'Please enter teacher name.' },
+      { field: 'name', required: true, message: 'Please enter student name.' },
       { field: 'mobile', required: true, message: 'Please enter mobile number.' },
       { field: 'email', required: true, message: 'Please enter email.' },
       { field: 'address', required: true, message: 'Please enter address.' },
@@ -99,10 +99,10 @@ export default function Edit (props) {
         password,
       }
       try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/adminApi/updateTeacher`, data)
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/adminApi/updateStudent`, data)
         const statusMessages = {
-          200: 'Teacher Updated successfully.',
-          201: 'Teacher Updated successfully.',
+          200: 'Student Updated successfully.',
+          201: 'Student Updated successfully.',
           202: 'Your request has been received and is being processed. Please wait for the results.',
           204: 'The server couldn\'t find any information to show or work with.',
           default: 'Please try reloading the page.'
@@ -129,7 +129,7 @@ export default function Edit (props) {
   return (
     <Fragment>
       <Dialog className='z-40' handler={closeDialog} open={props.isEditOpen} size={isMobile ? 'xxl' : 'md'}>
-        <DialogHeader className='bg-gray-100 text-center justify-center'>Update Branch </DialogHeader>
+        <DialogHeader className='bg-gray-100 text-center justify-center'>Update Student </DialogHeader>
         <DialogBody divider>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-3 w-full'>
         <Input
