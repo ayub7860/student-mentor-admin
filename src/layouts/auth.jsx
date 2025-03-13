@@ -6,20 +6,47 @@ import axios from 'axios'
 export function Auth () {
   const navigate = useNavigate()
   React.useEffect(() => {
-    document.title = 'Aditya-Anangha'
+    document.title = 'Mentor'
+
+    checkAdminToken();
+    checkTeacherToken();
+    checkStudentToken();
+
+  }, [])
+
+  const checkAdminToken = () => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/checkAdminToken`)
+    .get(`${import.meta.env.VITE_API_URL}/api/checkAdminToken`)
+    .then((response) => {
+      if (response.status === 200) {
+        navigate('/admin/dashboard', { replace: true })
+      }
+    })
+    .catch((errors) => { })
+  }
+
+  const checkTeacherToken = () => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/checkTeacherToken`)
       .then((response) => {
         if (response.status === 200) {
-          navigate('/admin/dashboard', { replace: true })
-        } else {
-          // window.location.replace(import.meta.env.VITE_LOGIN_URL)
+          navigate('/teacher/dashboard', { replace: true })
         }
       })
-      .catch((errors) => {
-        // window.location.replace(import.meta.env.VITE_LOGIN_URL)
+      .catch((errors) => {})
+  }
+
+  const checkStudentToken = () => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/checkStudentToken`)
+      .then((response) => {
+        if (response.status === 200) {
+          navigate('/student/dashboard', { replace: true })
+        }
       })
-  }, [])
+      .catch((errors) => {})
+  }
+
   return (
     <div className='relative min-h-screen w-full bg-blue-gray-50/100 dark:bg-gradient-to-br from-blue-gray-600 to-blue-gray-700'>
       <div className='container relative z-40 mx-auto p-4' />

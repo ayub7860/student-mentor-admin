@@ -52,10 +52,10 @@ export function SignIn () {
                 if(response.data.type === 'admin'){
                   // window.location.replace(import.meta.env.VITE_DASHBOARD_URL);
                   navigate('/admin/dashboard')
-                } else if(response.data.type === 'branch'){
-                  window.location.replace(import.meta.env.VITE_BRANCH_URL);
-                } else if(response.data.type === 'staff'){
-                  window.location.replace(import.meta.env.VITE_STAFF_URL);
+                } else if(response.data.type === 'teacher'){
+                  navigate('/teacher/dashboard')                
+                } else if(response.data.type === 'student'){
+                  navigate('/student/dashboard')                
                 }
                 
               } else {
@@ -148,9 +148,9 @@ export function SignIn () {
               value={role}
               onChange={(value) => setRole(value)}
             >
-              <Option value="Admin">Admin</Option>
-              <Option value="Teacher">Teacher</Option>
-              <Option value="Student">Student</Option>
+              <Option value="admin">Admin</Option>
+              <Option value="teacher">Teacher</Option>
+              <Option value="student">Student</Option>
             </Select>
             {role && <p className="mt-2 text-gray-700">Selected Role: {role}</p>}
           </div>

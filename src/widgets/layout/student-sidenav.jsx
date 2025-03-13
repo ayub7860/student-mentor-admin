@@ -8,7 +8,7 @@ import {
 } from '@material-tailwind/react'
 import { useMaterialTailwindController, setOpenSidenav } from '@/context'
 
-export function TeacherSidenav () {
+export function StudentSidenav () {
   const [controller, dispatch] = useMaterialTailwindController()
   const { sidenavColor, sidenavType, openSidenav } = controller
 
@@ -60,7 +60,7 @@ export function TeacherSidenav () {
         <ul key={'dashboard'} className='mb-2 mt-0.5 pl-1 flex flex-col gap-1'>
 
           <li key={'home'} className="text-md">
-            <NavLink to={`/teacher/dashboard`}>
+            <NavLink to={`/student/dashboard`}>
               {({isActive}) => (
                 <Button
                   variant={isActive ? "gradient" : "text"}
@@ -113,7 +113,7 @@ export function TeacherSidenav () {
             </NavLink>
           </li>
 
-          <li key={'teacher master'} className="text-md">
+          {/* <li key={'teacher master'} className="text-md">
             <NavLink to={`/teacher/teacher-master`}>
               {({isActive}) => (
                 <Button
@@ -155,7 +155,7 @@ export function TeacherSidenav () {
                 </Button>
               )}
             </NavLink>
-          </li>
+          </li> */}
 
         </ul>
       </div>
@@ -163,8 +163,8 @@ export function TeacherSidenav () {
   )
 }
 
-TeacherSidenav.defaultProps = {}
+StudentSidenav.defaultProps = {}
 
-TeacherSidenav.displayName = '/src/widgets/layout/teacher-sidenav'
+StudentSidenav.displayName = '/src/widgets/layout/student-sidenav'
 
-export default TeacherSidenav
+export default StudentSidenav
