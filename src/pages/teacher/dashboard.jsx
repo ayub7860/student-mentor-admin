@@ -38,23 +38,23 @@ export function Dashboard () {
               <div className='grid grid-cols-1 gap-6 lg:grid-cols-3 col-span-3'>
                 <div className='bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalBranchActive + '/' +formData.totalBranch}</h2> */}
-                  <p className='text-sm font-bold pt-4'>Total Branch</p>                 
+                  <p className='text-sm font-bold pt-4'>Total Student</p>                 
                 </div>
                 <div className='bg-yellow-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalStaffActive + '/' +formData.totalStaff}</h2> */}
-                  <p className='text-sm font-bold pt-4'>Total Staff</p>                 
+                  <p className='text-sm font-bold pt-4'>Class</p>                 
                 </div>
                 <div className='bg-gray-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalCustomerActive + '/' +formData.totalCustomer}</h2> */}
-                  <p className='text-sm font-bold pt-4'>Total Customer</p>                  
+                  <p className='text-sm font-bold pt-4'>Assignment & Exam</p>                  
                 </div>                
                 <div className='bg-purple-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalAccountActive + '/' +formData.totalAccount}</h2> */}
-                  <p className='text-sm font-bold pt-4'>Total Customer Accounts</p>                  
+                  <p className='text-sm font-bold pt-4'>Notice</p>                  
                 </div>
                 <div className='bg-red-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalAccountClose}</h2> */}
-                  <p className='text-sm font-bold pt-4'>Total Close Accounts</p>                  
+                  <p className='text-sm font-bold pt-4'>Report</p>                  
                 </div>
               </div>
             </div>

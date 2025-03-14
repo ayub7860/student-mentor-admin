@@ -18,10 +18,10 @@ import {
   import { formatDate } from '@/hooks/formatDate.js'
   dayjs.extend(customParseFormat)
   
-  const Add = React.lazy(() => import('../page-sections/student/add'))
-  const Edit = React.lazy(() => import('../page-sections/student/edit'))
+  const Add = React.lazy(() => import('../page-sections/adminNotice/add'))
+  const Edit = React.lazy(() => import('../page-sections/adminNotice/edit'))
   
-  export default function TeacherMasterHolder () {
+  export default function CustomerMasterHolder () {
     const navigate = useNavigate()
     const [controller] = useMaterialTailwindController()
     const { sidenavColor, theme } = controller
@@ -45,7 +45,7 @@ import {
     })
   
     React.useEffect(() => {
-      document.title = 'Mentor | Student Master'
+      document.title = 'Aditya-Anangha | Branch Master'
       getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
     }, [])
   
@@ -67,7 +67,7 @@ import {
     const refreshTableData = () => { getTableRecordByPage(1, tableProp.perPage, tableProp.orderBy, tableProp.orderDirection, tableProp.searchValue) }
     const getTableRecordByPage = (currentPage, perPage, orderBy, orderDirection, searchValue) => {
       axios
-        .post(`${import.meta.env.VITE_API_URL}/api/adminApi/getTableStudent`, {
+        .post(`${import.meta.env.VITE_API_URL}/api/teacherApi/getTableNotice`, {
           currentPage,
           perPage,
           orderBy,
@@ -119,7 +119,7 @@ import {
     }
   
     const changeStatus = (id, value) => {
-      const url = `${import.meta.env.VITE_API_URL}/api/adminApi/changeStatusStudent`
+      const url = `${import.meta.env.VITE_API_URL}/api/adminApi/changeStatusNotice`
       axios.post(url, { id, statusValue: value })
         .then(({ status }) => {
           if (status === 200) {
@@ -149,127 +149,14 @@ import {
           }
         })
     }
-  
-    const prepareForDownload = () => {
-      axios
-        .post(`${import.meta.env.VITE_API_URL}/api/adminBranchApi/getCSVTableAdminBranch`)
-        .then(async (response) => {
-          if (response.status === 200) {
-            processCSVData(response.data.tableData)
-          }
-        })
-        .catch((errors) => {
-          handleError(errors, theme)
-          switch (errors.response.status) {
-            case 401:
-              window.location.replace(import.meta.env.VITE_LOGIN_URL)
-              break
-            case 403:
-              navigate('/admin/dashboard', { replace: true })
-              break
-            default:
-          }
-        })
-    }
-  
-    const processCSVData = (tempData) => {
-      const date = new Date()
-      const dateTemp = dayjs(date, { format: 'DD MM YYYY, h:mm a' })
-      const formatedDate = dateTemp.format('DD MMM YYYY, h:mm a')
-      const csvDataTemp = []
-      csvDataTemp.push(['', 'Export Date', formatedDate, '', '', '', '', ''])
-      csvDataTemp.push(['Sr.No.', 
-        'Name', 
-        "Mobile",
-        "Mobile",
-        "Address",
-        "Pincode",
-        "City",
-        "Branch Code",
-        "Sequence Number",
-        "Total Staff",
-        "Total Staff Active",
-        "Total Customer",
-        "Total Custormer Active",
-        "Total Accounts",
-        "Total Active Accounts",
-        "Total Saving",
-        "Total Saving Active",
-        "Total Current",
-        "Total Current Active",
-        "Total Pigmy",
-        "Total Pigmy Active",
-        "Total Fd",
-        "Total Fd Active",
-        "Total Loan",
-        "Total Loan Active",
-        'Status', 'Created At', 'Updated At'])
-      for (const obj of tempData) {
-        const { srno,
-            name,
-            mobile,
-            address,
-            pincode,
-            city,    
-            branchCode,
-            sequenceNo,       
-            totalStaff, 
-            totalStaffActive, 
-            totalCustomer, 
-            totalCustomerActive, 
-            totalAccounts,
-            totalActiveAccounts,
-            totalSaving,
-            totalSavingActive,
-            totalCurrent,
-            totalCurrentActive,
-            totalPigmy,
-            totalPigmyActive,
-            totalFd,
-            totalFdActive,
-            totalLoan,
-            totalLoanActive, 
-            status, createdAt, updatedAt } = obj
-        const formatedUpdatedAt = formatDate(updatedAt)
-        const formatedCreatedAt = formatDate(createdAt)
-        const tempStatus = status === 1 ? 'active' : 'inactive'
-        csvDataTemp.push([srno, 
-            name,
-            mobile,
-            address,
-            pincode,
-            city,    
-            branchCode,    
-            sequenceNo,     
-            totalStaff, 
-            totalStaffActive, 
-            totalCustomer, 
-            totalCustomerActive,       
-            totalAccounts,
-            totalActiveAccounts,
-            totalSaving,
-            totalSavingActive,
-            totalCurrent,
-            totalCurrentActive,
-            totalPigmy,
-            totalPigmyActive,
-            totalFd,
-            totalFdActive,
-            totalLoan,
-            totalLoanActive,         
-            tempStatus, formatedCreatedAt, formatedUpdatedAt])
-      }
-      setCsvData(csvDataTemp)
-      setIsDownloadPrepare(true)
-    }
-  
+
     return (
       <div className='mt-12 mb-8 flex flex-col gap-12 animate-fade-in transform'>
         <Card className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800'>
           <CardHeader className='mb-4 p-3' color={sidenavColor} variant='gradient'>
             <div className='flex flex-col md:flex-row justify-between'>
               <Typography color='white' variant='h6'>
-                Student Master
+                Notice Master
               </Typography>
               <div className='flex flex-col md:flex-row gap-2'>
                 <div className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800 rounded-md border-0'>
@@ -282,13 +169,13 @@ import {
                 </div>
                 <div className='flex flex-row gap-2'>
                   <>
-                    <Button
+                    {/* <Button
                         className='inline-flex self-center'
                         color='white' size='sm' variant='outlined' onClick={event => { event.preventDefault(); setIsAddOpen(true) }}
                     >
                       <i className='fas fa-plus self-center pr-1' />
-                      ADD STUDENT
-                    </Button>
+                      ADD Notice
+                    </Button> */}
                     <>
                         <Button
                           className='inline-flex self-center'
@@ -298,7 +185,8 @@ import {
                           }}
                         >
                           <i className='fas fa-arrows-rotate self-center' />
-                        </Button>                    
+                        </Button>
+                        
                     </>
                   </>
                 </div>
@@ -314,38 +202,18 @@ import {
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Sr.No.'
                     />
-                    <TableHeaderCell key='rollNo' columnName='RollNo' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='title' columnName='title' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='RollNo'
+                        orderDirection={tableProp.orderDirection} text='Subject'
                     />
-                    <TableHeaderCell key='name' columnName='name' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='description' columnName='description' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Name'
+                        orderDirection={tableProp.orderDirection} text='Description'
                     />
-                    <TableHeaderCell key='mobile' columnName='mobile' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='type' columnName='type' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Mobile'
-                    />
-                    <TableHeaderCell key='otherMobile' columnName='otherMobile' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Other Mobile'
-                    />
-                    <TableHeaderCell key='email' columnName='email' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Email'
-                    />
-                    <TableHeaderCell key='address' columnName='address' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Address'
-                    />        
-                    <TableHeaderCell key='batchName' columnName='batchName' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Batch Name'
-                    />
-                    <TableHeaderCell key='teacherName' columnName='teacherName' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Teacher Name'
-                    />               
+                        orderDirection={tableProp.orderDirection} text='Type'
+                    />                  
                     <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Status'
@@ -401,7 +269,7 @@ import {
                                         {rowObj.srno}.
                                       </Typography>
                                     <>
-                                        <Tooltip className='text-xs p-1' content='edit'>
+                                        {/* <Tooltip className='text-xs p-1' content='edit'>
                                             <Typography
                                                 as='button'
                                                 className='text-base font-semibold text-blue-600'
@@ -410,19 +278,20 @@ import {
                                                 <i className='fas fa-pen-to-square' />
                                               </Typography>
                                           </Tooltip>
-                                        <TableStatusButton changeStatus={changeStatus} rowObj={rowObj} />
+                                        <TableStatusButton changeStatus={changeStatus} rowObj={rowObj} /> */}
                                       </>
                                   </div>
                               </td>
   
-                            <TableCell text={rowObj.rollNo} />
-                            <TableCell text={rowObj.name} />
-                            <TableCell text={rowObj.mobile} />  
-                            <TableCell text={rowObj.otherNumber} />    
-                            <TableCell text={rowObj.email} />                        
-                            <TableCell text={rowObj.address} />  
-                            <TableCell text={rowObj.batchName} />
-                            <TableCell text={rowObj.teacherName} />                           
+                            <TableCell text={rowObj.title} />
+                            <TableCell text={rowObj.description} />                          
+                            <td className='py-1 px-2 border-b border-blue-gray-50'>
+                                <Chip
+                                    className='py-0.5 px-2 text-[11px] font-medium'
+                                    value={rowObj.type === 1 ? 'Teacher' :  rowObj.type === 2 ? 'Student' : 'All'}
+                                    variant='gradient'
+                                  />
+                            </td> 
                             <td className='py-1 px-2 border-b border-blue-gray-50'>
                                 <Chip
                                     className='py-0.5 px-2 text-[11px] font-medium'

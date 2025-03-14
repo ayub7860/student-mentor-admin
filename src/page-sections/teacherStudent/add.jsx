@@ -7,8 +7,7 @@ import {
   DialogFooter,
   Input,
   Select,
-  Option,
-  Textarea
+  Option
 } from '@material-tailwind/react'
 import axios from 'axios'
 import { validateFormData } from '@/hooks/validation.js'
@@ -17,8 +16,6 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { CancelButton, SubmitButton } from '@/widgets/components/index.js'
 import { useMaterialTailwindController } from '@/context/index.jsx'
-import AsyncSelect from 'react-select/async'
-import { fetchData } from '@/hooks/fetchData'
 
 export default function Add (props) {
   const navigate = useNavigate()
@@ -26,73 +23,24 @@ export default function Add (props) {
   const { theme } = controller
   const [formData, setFormData] = useState({
     name: '',
-    rollNo: '',
-    batchName:'',
     mobile: '',
     otherNumber: '',
     email: '',
     address: '',
+    pincode: '',
+    city: '',
     password: '',
   })
-  const [ teacherSelectList, setTeacherSelectList ] = useState([]);
-  const [ teacherSelected, setTeacherSelected ] = useState(null);
-
-  React.useEffect(() => {
-      Promise.all([
-        fetchData(`${import.meta.env.VITE_API_URL}/api/adminApi/getAllTeacherName`, theme),
-      ]).then(([ teacherList ]) => {
-        setTeacherSelectList(teacherList);
-      });
-  }, [])
-
-
-  const handleSelectForAsyncSelect = (newValue, actionMeta) => {
-    const { name, action } = actionMeta;
-    const label = newValue?.label ?? '';
-    const value = newValue?.value ?? '';
-
-    if (name === 'teacherName') {
-        if (action === 'clear') {
-            setTeacherSelected(null);
-        } else {
-            setTeacherSelected({ value, label });
-        }
-    }
-  }
-
-  const teacherNamePromiseOptions = (inputValue, callback) => {
-    if (inputValue.length > 0) {
-        axios
-        .get( `${import.meta.env.VITE_API_URL}/api/adminApi/getTeacherNameForSelect?word=${inputValue}`)
-        .then((response) => {
-            if (response.status === 200) callback(response.data);
-        })
-        .catch((errors) => {
-            handleError(errors, theme);
-            switch (errors.response.status) {
-                case 401:
-                    window.location.replace(import.meta.env.VITE_LOGIN_URL);
-                    break;
-                case 403:
-                    navigate('/admin/dashboard', { replace: true });
-                    break;
-                default:
-            }
-            callback([]);
-        });
-    }
-  };
-    
 
   const closeDialog = () => {
     setFormData({
       name: '',
-      rollNo: '',
-      batchName:'',
       mobile: '',
       otherNumber: '',
       email: '',
       address: '',
+      pincode: '',
+      city: '',
       password: '',
     })
     props.setIsAddOpen(false)
@@ -108,30 +56,28 @@ export default function Add (props) {
   const submitData = async () => {
     const validationRules = [
       { field: 'name', required: true, message: 'Please enter student name.' },
-      { field: 'rollNo', required: true, message: 'Please enter roll number.' },
-      { field: 'batchName', required: true, message: 'Please enter batch name.' },
       { field: 'mobile', required: true, message: 'Please enter mobile number.' },
       { field: 'email', required: true, message: 'Please enter email.' },
       { field: 'address', required: true, message: 'Please enter address.' },
+      { field: 'pincode', required: true, message: 'Please enter pincode.' },
+      { field: 'city', required: true, message: 'Please enter city.' },
       { field: 'password', required: true, message: 'Please enter password.' },
     ]
     const hasError = validateFormData(formData, validationRules, theme)
     if (!hasError) {
-      const { name, rollNo, batchName, mobile, otherNumber, email, address, password } = formData;
+      const { name, mobile, otherNumber, email, address, pincode, city, password } = formData;
       const data = {
         name,
-        rollNo,
-        batchName,
         mobile,
         otherNumber,
         email,
         address,
+        pincode,
+        city,
         password,
-        teacherName: teacherSelected.label,
-        teacherId: teacherSelected.value
       }
       try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/adminApi/addStudent`, data)
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/teacherApi/addStudent`, data)
         const statusMessages = {
           200: 'Student added successfully.',
           201: 'Student added successfully.',
@@ -174,21 +120,6 @@ export default function Add (props) {
             <Input
               type='number'
               required
-              label='Roll Number'
-              name='rollNo'
-              value={formData.rollNo}
-              onChange={handleTextChange}
-            />
-             <Input          
-              required
-              label='Batch Name'
-              name='batchName'
-              value={formData.batchName}
-              onChange={handleTextChange}
-            />
-            <Input
-              type='number'
-              required
               label='Mobile'
               name='mobile'
               value={formData.mobile}
@@ -209,16 +140,14 @@ export default function Add (props) {
               value={formData.email}
               onChange={handleTextChange}
             />
-            <div className='col-span-2'>
-            <Textarea
+            <Input
               required
               label='Address'
               name='address'
               value={formData.address}
               onChange={handleTextChange}
             />
-            </div>
-            {/* <Input
+            <Input
               required
               label='Pincode'
               name='pincode'
@@ -231,8 +160,7 @@ export default function Add (props) {
               name='city'
               value={formData.city}
               onChange={handleTextChange}
-            />            */}
-            <div className='self-end'>
+            />           
             <Input
               required
               label='Password'
@@ -240,24 +168,6 @@ export default function Add (props) {
               value={formData.password}
               onChange={handleTextChange}
             />
-            </div>
-            <div>
-              <label className="text-xs"  id="aria-label" htmlFor="aria-select-account">
-                  Select Teacher <label className="text-red-600">*</label>
-              </label>
-              <AsyncSelect
-                  aria-labelledby="aria-label"
-                  inputId="aria-select-branch"
-                  fullWidth
-                  placeholder={'Search and select teacher...'}
-                  name="teacherName"
-                  defaultOptions={teacherSelectList}
-                  value={teacherSelected}
-                  isClearable
-                  onChange={handleSelectForAsyncSelect}
-                  loadOptions={teacherNamePromiseOptions}
-              />  
-            </div>
           </div>
         </DialogBody>
         <DialogFooter className='bg-gray-100'>

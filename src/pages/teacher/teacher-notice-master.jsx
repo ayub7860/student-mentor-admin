@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react'
 
-const BranchMasterHolder = React.lazy(() => import('../../page-holder/branch-master-holder'))
+const NoticeMasterHolder = React.lazy(() => import('../../page-holder/teacher-notice-holder'))
 
-export function BranchMaster () {
+export function NoticeMaster () {
   return (
     <Suspense fallback={(
       <div className='flex flex-col items-center justify-center h-screen'>
@@ -17,9 +17,9 @@ export function BranchMaster () {
       </div>
         )}
     >
-      <BranchMasterHolder />
+      <NoticeMasterHolder />
     </Suspense>
   )
 }
 
-export default BranchMaster
+export default NoticeMaster

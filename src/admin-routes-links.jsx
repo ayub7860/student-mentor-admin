@@ -3,21 +3,9 @@ import {
   Profile,
   UserMaster,
   AddUserMaster,
-  CustomerMaster,
-  CustomerProductMaster,
-  ProductMaster,
-  BranchMaster,
-  StaffMaster,
-  StaffPayoutMaster,
-  AddStaffPayoutMaster,
-  WalkinCustomerMaster,
-  RecoveryMaster,
-  StaffReportMaster,
-  ExpiredCustomerProductMaster,
-  EditCustomerProductMaster,
-  EditExpiredCustomerProductMaster,
   TeacherMaster,
   StudentMaster,
+  NoticeMaster,
 } from '@/pages/admin'
 
 export const adminRoutes = [
@@ -53,77 +41,13 @@ export const adminRoutes = [
         name: 'user master',
         path: '/user-master',
         element: <UserMaster/>
+      },  
+      {
+        name: 'notice master',
+        path: '/notice-master',
+        element: <NoticeMaster/>
       },     
-      {
-        name: 'Customer master',
-        path: '/customer-master',
-        element: <CustomerMaster/>
-      },
-      {
-        name: 'Walkin Customer master',
-        path: '/walkin-customer-master',
-        element: <WalkinCustomerMaster/>
-      },
-      {
-        name: 'Customer product master',
-        path: '/customer-product-master',
-        element: <CustomerProductMaster/>
-      },
-      {
-        name: 'Product master',
-        path: '/product-master',
-        element: <ProductMaster/>
-      },
-      {
-        name: 'Branch master',
-        path: '/branch-master',
-        element: <BranchMaster/>
-      },
-      {
-        name: 'Staff master',
-        path: '/staff-master',
-        element: <StaffMaster/>
-      },
-      {
-        name: ' Staff payout master',
-        path: '/staff-payout-master',
-        element: <StaffPayoutMaster/>
-      },
-      {
-        name: 'Add Staff payout master',
-        path: '/add-staff-payout-master',
-        element: <AddStaffPayoutMaster/>
-      },
-      {
-        name: 'Recovery master',
-        path: '/recovery-master',
-        element: <RecoveryMaster/>
-      },
-      {
-        name: 'staff report master',
-        path: '/staff-report-master',
-        element: <StaffReportMaster/>
-      },
-      {
-        name: 'expired Customer product master',
-        path: '/expired-customer-product-master',
-        element: <ExpiredCustomerProductMaster/>
-      },
-      {
-        name: 'edit customer product master',
-        path: '/edit-customer-product-master/:id',
-        element: <EditCustomerProductMaster/>
-      },
-      {
-        name: 'edit customer product master',
-        path: '/edit-customer-product-master/:id',
-        element: <EditCustomerProductMaster/>
-      },
-      {
-        name: 'edit expired Customer product master',
-        path: '/edit-expired-customer-product-master/:id',
-        element: <EditExpiredCustomerProductMaster/>
-      },
+     
     ]
   }
 ]

@@ -18,9 +18,10 @@ import {
   import { formatDate } from '@/hooks/formatDate.js'
   dayjs.extend(customParseFormat)
   
-  const StaffShift = React.lazy(() => import('../page-sections/customer/shiftStaff'))
-
-  export default function WalkinCustomerMasterHolder () {
+  const Add = React.lazy(() => import('../page-sections/teacherStudent/add'))
+  const Edit = React.lazy(() => import('../page-sections/teacherStudent/edit'))
+  
+  export default function TeacherMasterHolder () {
     const navigate = useNavigate()
     const [controller] = useMaterialTailwindController()
     const { sidenavColor, theme } = controller
@@ -42,11 +43,9 @@ import {
       orderBy: 'createdAt',
       orderDirection: 'desc'
     })
-    const [isStaffOpen, setIsStaffOpen] = useState(false)
-    const [selectedStaffRecord, setSelectedStaffRecord] = useState({})
-
+  
     React.useEffect(() => {
-      document.title = 'Aditya-Anangha | Customer Master'
+      document.title = 'Mentor | Student Master'
       getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
     }, [])
   
@@ -68,7 +67,7 @@ import {
     const refreshTableData = () => { getTableRecordByPage(1, tableProp.perPage, tableProp.orderBy, tableProp.orderDirection, tableProp.searchValue) }
     const getTableRecordByPage = (currentPage, perPage, orderBy, orderDirection, searchValue) => {
       axios
-        .post(`${import.meta.env.VITE_API_URL}/api/adminCustomerApi/getTableWalkingCustomer`, {
+        .post(`${import.meta.env.VITE_API_URL}/api/teacherApi/getTableStudent`, {
           currentPage,
           perPage,
           orderBy,
@@ -120,7 +119,7 @@ import {
     }
   
     const changeStatus = (id, value) => {
-      const url = `${import.meta.env.VITE_API_URL}/api/adminCustomerApi/changeStatusCustomer`
+      const url = `${import.meta.env.VITE_API_URL}/api/teacherApi/changeStatusStudent`
       axios.post(url, { id, statusValue: value })
         .then(({ status }) => {
           if (status === 200) {
@@ -144,124 +143,22 @@ import {
               window.location.replace(import.meta.env.VITE_LOGIN_URL)
               break
             case 403:
-              navigate('/admin/dashboard', { replace: true })
+              navigate('/teacher/dashboard', { replace: true })
               break
             default:
           }
         })
     }
   
-    const prepareForDownload = () => {
-      axios
-        .post(`${import.meta.env.VITE_API_URL}/api/adminCustomerApi/getCSVTableAdminCustomer`)
-        .then(async (response) => {
-          if (response.status === 200) {
-            processCSVData(response.data.tableData)
-          }
-        })
-        .catch((errors) => {
-          handleError(errors, theme)
-          switch (errors.response.status) {
-            case 401:
-              window.location.replace(import.meta.env.VITE_LOGIN_URL)
-              break
-            case 403:
-              navigate('/admin/dashboard', { replace: true })
-              break
-            default:
-          }
-        })
-    }
+   
   
-    const processCSVData = (tempData) => {
-      const date = new Date()
-      const dateTemp = dayjs(date, { format: 'DD MM YYYY, h:mm a' })
-      const formatedDate = dateTemp.format('DD MMM YYYY, h:mm a')
-      const csvDataTemp = []
-      csvDataTemp.push(['', 'Export Date', formatedDate, '', '', '', '', ''])
-      csvDataTemp.push(['Sr.No.', 'Customer Name', 
-        "customer Mobile",
-        "customer Aadhaar",
-        "customer Address",
-        "Pincode",
-        "City",
-        "Joining Date",
-        "Total Accounts",
-        "Total Active Accounts",
-        "Total Saving",
-        "Total Saving Active",
-        "Total Current",
-        "Total Current Active",
-        "Total Pigmy",
-        "Total Pigmy Active",
-        "Total Fd",
-        "Total Fd Active",
-        "Total Loan",
-        "Total Loan Active", "Branch Name", "Staff Name",
-        'Status', 'Created At', 'Updated At'])
-      for (const obj of tempData) {
-        const { srno,
-            customerName,
-            customerMobile,
-            customerAadhaar,
-            customerAddress,
-            pincode,
-            city,
-            joiningDate,
-            totalAccounts,
-            totalActiveAccounts,
-            totalSaving,
-            totalSavingActive,
-            totalCurrent,
-            totalCurrentActive,
-            totalPigmy,
-            totalPigmyActive,
-            totalFd,
-            totalFdActive,
-            totalLoan,
-            totalLoanActive,  branchName, staffName, 
-            status, createdAt, updatedAt } = obj
-        const formatedUpdatedAt = formatDate(updatedAt)
-        const formatedCreatedAt = formatDate(createdAt)
-        const tempStatus = status === 1 ? 'active' : 'inactive'
-        csvDataTemp.push([srno, 
-            customerName,
-            customerMobile,
-            customerAadhaar,
-            customerAddress,
-            pincode,
-            city,
-            joiningDate,
-            totalAccounts,
-            totalActiveAccounts,
-            totalSaving,
-            totalSavingActive,
-            totalCurrent,
-            totalCurrentActive,
-            totalPigmy,
-            totalPigmyActive,
-            totalFd,
-            totalFdActive,
-            totalLoan,
-            totalLoanActive, branchName, staffName,         
-            tempStatus, formatedCreatedAt, formatedUpdatedAt])
-      }
-      setCsvData(csvDataTemp)
-      setIsDownloadPrepare(true)
-    }
-  
-    const assignStaff = (data) => {
-      setSelectedStaffRecord(data);
-      setIsStaffOpen(true)
-    }
-
     return (
       <div className='mt-12 mb-8 flex flex-col gap-12 animate-fade-in transform'>
         <Card className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800'>
           <CardHeader className='mb-4 p-3' color={sidenavColor} variant='gradient'>
             <div className='flex flex-col md:flex-row justify-between'>
               <Typography color='white' variant='h6'>
-                Walkin Customer Master
+                Student Master
               </Typography>
               <div className='flex flex-col md:flex-row gap-2'>
                 <div className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800 rounded-md border-0'>
@@ -279,7 +176,7 @@ import {
                         color='white' size='sm' variant='outlined' onClick={event => { event.preventDefault(); setIsAddOpen(true) }}
                     >
                       <i className='fas fa-plus self-center pr-1' />
-                      ADD
+                      ADD STUDENT
                     </Button> */}
                     <>
                         <Button
@@ -290,29 +187,7 @@ import {
                           }}
                         >
                           <i className='fas fa-arrows-rotate self-center' />
-                        </Button>
-                        {isDownloadPrepare
-                          ? (
-                              <div className='flex flex-row gap-2'>
-                                  <button className='px-2 py-1 text-white rounded shadow-blue-gray-500 justify-center'>
-                                      <CSVLink data={csvData} filename={'customer-master.csv'}><i className='fas fa-download' /></CSVLink>
-                                    </button>
-                                </div>
-                            )
-                          : (
-                              <div className='flex flex-row gap-2'>
-                                  <Button
-                                      className='inline-flex self-center'
-                                      color='white' size='sm' variant='outlined' onClick={event => {
-                                        event.preventDefault()
-                                        prepareForDownload()
-                                      }}
-                                    >
-                                      <i className='fas fa-cloud-arrow-down' />
-                                    </Button>
-                                </div>
-                            )
-                        }
+                        </Button>                    
                     </>
                   </>
                 </div>
@@ -328,94 +203,34 @@ import {
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Sr.No.'
                     />
-                    <TableHeaderCell key='exStaffName' columnName='exStaffName' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='name' columnName='name' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='EX_Staff_Name'
+                        orderDirection={tableProp.orderDirection} text='Name'
                     />
-                    <TableHeaderCell key='customerName' columnName='customerName' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='mobile' columnName='mobile' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Customer_Name'
+                        orderDirection={tableProp.orderDirection} text='Mobile'
                     />
-                    <TableHeaderCell key='customerMobile' columnName='customerMobile' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='otherMobile' columnName='otherMobile' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Customer_Mobile'
+                        orderDirection={tableProp.orderDirection} text='Other Mobile'
                     />
-                    <TableHeaderCell key='customerAadhaar' columnName='customerAadhaar' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='email' columnName='email' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Customer_Aadhaar'
+                        orderDirection={tableProp.orderDirection} text='Email'
                     />
-                    <TableHeaderCell key='customerAddress' columnName='customerAddress' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='address' columnName='address' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Customer_Address'
-                    />
+                        orderDirection={tableProp.orderDirection} text='Address'
+                    />        
                     <TableHeaderCell key='pincode' columnName='pincode' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='pincode'
+                        orderDirection={tableProp.orderDirection} text='Pincode'
                     />
                     <TableHeaderCell key='city' columnName='city' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='city'
-                    />
-                    <TableHeaderCell key='joiningDate' columnName='joiningDate' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Joining_Date'
-                    />
-                    <TableHeaderCell key='totalAccounts' columnName='totalAccounts' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Accounts'
-                    />
-                    <TableHeaderCell key='totalActiveAccounts' columnName='totalActiveAccounts' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Active_Accounts'
-                    />
-                    <TableHeaderCell key='totalSaving' columnName='totalSaving' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Saving'
-                    />
-                    <TableHeaderCell key='totalSavingActive' columnName='totalSavingActive' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Saving_Active'
-                    />
-                    <TableHeaderCell key='totalCurrent' columnName='totalCurrent' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Current'
-                    />
-                    <TableHeaderCell key='totalCurrentActive' columnName='totalCurrentActive' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Current_Active'
-                    />
-                    <TableHeaderCell key='totalPigmy' columnName='totalPigmy' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Pigmy'
-                    />
-                    <TableHeaderCell key='totalPigmyActive' columnName='totalPigmyActive' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Pigmy_Active'
-                    />
-                    <TableHeaderCell key='totalFd' columnName='totalFd' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Fd'
-                    />
-                    <TableHeaderCell key='totalFdActive' columnName='totalFdActive' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Fd_Active'
-                    />
-                    <TableHeaderCell key='totalLoan' columnName='totalLoan' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Loan'
-                    />
-                    <TableHeaderCell key='totalLoanActive' columnName='totalLoanActive' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Total_Loan_Active'
-                    />
-                    <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Staff_Name'
-                    />
-                    <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Branch_Name'
-                    />
+                        orderDirection={tableProp.orderDirection} text='City'
+                    />               
                     <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Status'
@@ -471,42 +286,29 @@ import {
                                         {rowObj.srno}.
                                       </Typography>
                                     <>
-                                      {rowObj.status === 1 &&
-                                      <Tooltip className='text-xs p-1' content='Assign staff'>
-                                        <Typography
-                                          as='button'
-                                          className='text-base font-semibold text-green-600'
-                                          onClick={event => { event.preventDefault(); assignStaff(rowObj) }}
-                                        >
-                                          <i className="fa-solid fa-share"></i>
-                                        </Typography>
-                                      </Tooltip>
-                                    }
+                                        {/* <Tooltip className='text-xs p-1' content='edit'>
+                                            <Typography
+                                                as='button'
+                                                className='text-base font-semibold text-blue-600'
+                                                onClick={event => { event.preventDefault(); handleEdit(rowObj) }}
+                                              >
+                                                <i className='fas fa-pen-to-square' />
+                                              </Typography>
+                                          </Tooltip> */}
+                                        {/* <TableStatusButton changeStatus={changeStatus} rowObj={rowObj} /> */}
                                       </>
                                   </div>
                               </td>
-                            <TableCell text={rowObj.exStaffName} />
-                            <TableCell text={rowObj.customerName} />
-                            <TableCell text={rowObj.customerMobile} />
-                            <TableCell text={rowObj.customerAadhaar} />
-                            <TableCell text={rowObj.customerAddress} />
+  
+                            <TableCell text={rowObj.name} />
+                            <TableCell text={rowObj.mobile} />  
+                            <TableCell text={rowObj.otherNumber} />    
+                            <TableCell text={rowObj.email} />                        
+                            <TableCell text={rowObj.address} />  
                             <TableCell text={rowObj.pincode} />
                             <TableCell text={rowObj.city} />
-                            <TableCell text={rowObj.joiningDate} />
-                            <TableCell text={rowObj.totalAccounts} />
-                            <TableCell text={rowObj.totalActiveAccounts} />
-                            <TableCell text={rowObj.totalSaving} />
-                            <TableCell text={rowObj.totalSavingActive} />
-                            <TableCell text={rowObj.totalCurrent} />
-                            <TableCell text={rowObj.totalCurrentActive} />
-                            <TableCell text={rowObj.totalPigmy} />
-                            <TableCell text={rowObj.totalPigmyActive} />
-                            <TableCell text={rowObj.totalFd} />
-                            <TableCell text={rowObj.totalFdActive} />
-                            <TableCell text={rowObj.totalLoan} />
-                            <TableCell text={rowObj.totalLoanActive} />  
-                            <TableCell text={rowObj.staffName} />  
-                            <TableCell text={rowObj.branchName} />  
+                         
+                           
                             <td className='py-1 px-2 border-b border-blue-gray-50'>
                                 <Chip
                                     className='py-0.5 px-2 text-[11px] font-medium'
@@ -537,7 +339,8 @@ import {
           </CardBody>
         </Card>
         <Suspense fallback={<div />}>
-        <StaffShift isStaffOpen={isStaffOpen} refreshTableData={refreshTableData} selectedStaffRecord={selectedStaffRecord} setIsStaffOpen={setIsStaffOpen} />
+          <Add isAddOpen={isAddOpen} refreshTableData={refreshTableData} setIsAddOpen={setIsAddOpen} />
+          <Edit isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} />
         </Suspense>
       </div>
     )
