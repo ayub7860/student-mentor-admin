@@ -20,7 +20,8 @@ import {
   
   const Add = React.lazy(() => import('../page-sections/teacherStudent/add'))
   const Edit = React.lazy(() => import('../page-sections/teacherStudent/edit'))
-  
+  const View = React.lazy(() => import('../page-sections/teacherStudent/view'))
+
   export default function TeacherMasterHolder () {
     const navigate = useNavigate()
     const [controller] = useMaterialTailwindController()
@@ -150,6 +151,28 @@ import {
         })
     }
   
+    const approvedStatus = (id, value) => {
+      const url = `${import.meta.env.VITE_API_URL}/api/teacherApi/approvedStatus`
+      axios.post(url, { id, statusValue: 1 })
+        .then(({ status }) => {
+          if (status === 200) {
+            switch (value) {
+              case 1:
+                refreshTableData()
+                toast.success('The record, which was previously inactive, has been made active and can now be used or accessed.', { position: 'top-center', theme })
+                break
+              case 2:
+                refreshTableData()
+                toast.success('The record, which was previously active, has been made inactive and cannot be used or accessed until it is activated again.', { position: 'top-center', theme })
+                break
+              default:
+            }
+          }
+        })
+        .catch((errors) => {
+          handleError(errors, theme)
+        })
+    }
    
   
     return (
@@ -223,14 +246,10 @@ import {
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Address'
                     />        
-                    <TableHeaderCell key='pincode' columnName='pincode' handleOrderBy={handleOrderBy}
+                    <TableHeaderCell key='isCompanyApproved' columnName='isCompanyApproved' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='Pincode'
-                    />
-                    <TableHeaderCell key='city' columnName='city' handleOrderBy={handleOrderBy}
-                        isOrderByAvailable={true} orderBy={tableProp.orderBy}
-                        orderDirection={tableProp.orderDirection} text='City'
-                    />               
+                        orderDirection={tableProp.orderDirection} text='Company Approveed'
+                    />                                   
                     <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Status'
@@ -286,15 +305,26 @@ import {
                                         {rowObj.srno}.
                                       </Typography>
                                     <>
-                                        {/* <Tooltip className='text-xs p-1' content='edit'>
+                                        <Tooltip className='text-xs p-1' content='company details'>
                                             <Typography
                                                 as='button'
                                                 className='text-base font-semibold text-blue-600'
                                                 onClick={event => { event.preventDefault(); handleEdit(rowObj) }}
                                               >
-                                                <i className='fas fa-pen-to-square' />
+                                                <i className="fas fa-eye" />
                                               </Typography>
-                                          </Tooltip> */}
+                                          </Tooltip>
+                                          {rowObj.isCompanyApproved === 2 && rowObj.isCompanyApproved === 3 &&
+                                          <Tooltip className='text-xs p-1' content='Approved Company'>
+                                            <Typography
+                                                as='button'
+                                                className='text-base font-semibold text-green-600'
+                                                onClick={event => { event.preventDefault(); approvedStatus(rowObj.id, 1) }}
+                                              >
+                                                <i className="fas fa-check" />
+                                              </Typography>
+                                          </Tooltip>
+                                          }
                                         {/* <TableStatusButton changeStatus={changeStatus} rowObj={rowObj} /> */}
                                       </>
                                   </div>
@@ -305,10 +335,14 @@ import {
                             <TableCell text={rowObj.otherNumber} />    
                             <TableCell text={rowObj.email} />                        
                             <TableCell text={rowObj.address} />  
-                            <TableCell text={rowObj.pincode} />
-                            <TableCell text={rowObj.city} />
-                         
-                           
+                            <td className='py-1 px-2 border-b border-blue-gray-50'>
+                                <Chip
+                                    className='py-0.5 px-2 text-[11px] font-medium'
+                                    color={rowObj.isCompanyApproved === 1 ? 'green' : rowObj.isCompanyApproved === 2 ? 'red' : 'yellow'}
+                                    value={rowObj.isCompanyApproved === 1 ? 'Approved' : rowObj.isCompanyApproved === 2 ? 'Not Approved' : 'Pending..'}
+                                    variant='gradient'
+                                  />
+                              </td>
                             <td className='py-1 px-2 border-b border-blue-gray-50'>
                                 <Chip
                                     className='py-0.5 px-2 text-[11px] font-medium'
@@ -340,7 +374,8 @@ import {
         </Card>
         <Suspense fallback={<div />}>
           <Add isAddOpen={isAddOpen} refreshTableData={refreshTableData} setIsAddOpen={setIsAddOpen} />
-          <Edit isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} />
+          {/* <Edit isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} /> */}
+          <View isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} />
         </Suspense>
       </div>
     )
