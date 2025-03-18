@@ -2,6 +2,7 @@ import {
   Dashboard,
   NoticeMaster,
   StudentCompanyProfileMaster,
+  StudentReportMaster,
   // Profile,
 } from '@/pages/student'
 
@@ -23,6 +24,11 @@ export const studentRoutes = [
         name: 'company profile',
         path: '/company-profile-master',
         element: <StudentCompanyProfileMaster/>
+      },
+      {
+        name: 'report master',
+        path: '/student-report-master',
+        element: <StudentReportMaster/>
       },  
     ]
   }

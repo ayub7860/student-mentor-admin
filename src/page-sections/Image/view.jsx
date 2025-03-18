@@ -25,18 +25,16 @@ export default function View (props) {
     }
   }, [props.isViewOpen])
 
-  console.log('props.selectedRecord', formData.image)
-
   const closeDialog = () => {
     props.setIsViewOpen(false)
   }
 
   return (
     <Fragment>
-      <Dialog className='overflow-scroll z-40' open={props.isViewOpen} size='xxl'>
+      <Dialog className='overflow-scroll z-40 bg-white' open={props.isViewOpen} size='xxl'>
         <DialogHeader className='bg-gray-100 text-center justify-center'>
           <DialogHeader className='bg-gray-100 text-center justify-center'>
-            User Master
+            
             <button
                         className='absolute top-2 right-8 bg-transparent border-0 cursor-pointer'
                         title='Close'
