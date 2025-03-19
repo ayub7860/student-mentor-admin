@@ -17,6 +17,7 @@
     "crypto": "^1.0.1",
     "dayjs": "^1.11.10",
     "js-sha512": "^0.9.0",
+    "lucide-react": "^0.483.0",
     "prop-types": "15.8.1",
     "qr-code-styling": "^1.6.0-rc.1",
     "react": "18.2.0",

@@ -29,7 +29,7 @@ export function Dashboard () {
       <div className='min-h-screen bg-opacity-10 bg-cover bg-center bg-fill'>
         <header className='bg-white shadow-2xl rounded-lg'>
           <div className='max-w-7xl mx-auto pt-5 px-4 sm:px-6 lg:px-8'>
-            <h1 className='text-xl font-bold text-gray-900' data-aos='zoom-out'>Home</h1>
+            <h1 className='text-xl font-bold text-gray-900' data-aos='zoom-out'>Wellcome To Student</h1>
           </div>
         </header>
         <main>
@@ -61,8 +61,9 @@ export function Dashboard () {
           </div>
         </main>
       </div>
-    </>
-  )
+    </>   
+  );
 }
 
 export default Dashboard
+
