@@ -31,7 +31,7 @@ export default function AddUserMasterHolder (props) {
   })
 
   React.useEffect(() => {
-    document.title = 'Aditya-Anangha | Add User Master'
+    document.title = 'Mentor | Add User Master'
   }, [])
 
   const closeDialog = () => {

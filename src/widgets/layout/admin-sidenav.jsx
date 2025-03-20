@@ -35,9 +35,10 @@ export function AdminSidenav () {
       >
         <Link className='flex items-center py-2 px-2 w-10/12' to={`/${layout}/dashboard`}>
           <img
-            src="/img/staff.webp"
-            className="h-full w-full object-cover bg-white rounded-md"
-            alt="Aditya-Anangha"/>
+            src="/img/logo.png"
+            className="h-20 w-20 object-fit bg-white rounded-md"
+            alt="img"/>
+            <p className='px-2'>Mentor</p>
         </Link>
         <IconButton
           className='h-full grid rounded-br-none rounded-tl-none self-center w-2/12'
@@ -239,6 +240,50 @@ export function AdminSidenav () {
                     className="subpixel-antialiased font-bold text-base"
                   >
                    Notice Master
+                  </Typography>
+                </Button>
+              )}
+            </NavLink>
+          </li>
+
+          <li key={'report master'} className="text-md">
+            <NavLink to={`/admin/report-master`}>
+              {({isActive}) => (
+                <Button
+                  variant={isActive ? "gradient" : "text"}
+                  onClick={() => {
+                    if (isMobile) setOpenSidenav(dispatch, false);
+                  }}
+                  color={
+                    isActive
+                      ? sidenavColor
+                      : sidenavType === "dark"
+                        ? "white"
+                        : "blue-gray"
+                  }
+                  className="flex items-center gap-2 px-3 py-1 capitalize"
+                  fullWidth
+                >
+                 {isActive ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="h-6 w-6 text-gray-300"
+                         viewBox="0 0 16 16">
+                      <path fill="#FFFFFF" fillRule="evenodd"
+                            d="M4.535 3A3.5 3.5 0 0 1 7.25.08v1.67a.75.75 0 1 0 1.5 0V.08A3.5 3.5 0 0 1 11.464 3h.286a.75.75 0 0 1 0 1.5h-.25a3.5 3.5 0 0 1-7 0h-.25a.75.75 0 0 1 0-1.5zM8 6.5a2 2 0 0 1-2-2h4a2 2 0 0 1-2 2m-5.5 6c0-.204.22-.809 1.32-1.459a6 6 0 0 1 .223-.125L5.01 13.5H3.5a1 1 0 0 1-1-1m4.114 1l-1.179-3.143A9.2 9.2 0 0 1 8 10c.93 0 1.8.135 2.565.357L9.387 13.5H6.612Zm4.375 0H12.5a1 1 0 0 0 1-1c0-.204-.22-.809-1.32-1.459a6 6 0 0 0-.223-.125l-.969 2.584ZM8 8.5c-3.85 0-7 2-7 4A2.5 2.5 0 0 0 3.5 15h9a2.5 2.5 0 0 0 2.5-2.5c0-2-3.15-4-7-4"
+                            clipRule="evenodd"></path>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="h-6 w-6 text-gray-300"
+                         viewBox="0 0 16 16">
+                      <path fill="#888888" fillRule="evenodd"
+                            d="M4.535 3A3.5 3.5 0 0 1 7.25.08v1.67a.75.75 0 1 0 1.5 0V.08A3.5 3.5 0 0 1 11.464 3h.286a.75.75 0 0 1 0 1.5h-.25a3.5 3.5 0 0 1-7 0h-.25a.75.75 0 0 1 0-1.5zM8 6.5a2 2 0 0 1-2-2h4a2 2 0 0 1-2 2m-5.5 6c0-.204.22-.809 1.32-1.459a6 6 0 0 1 .223-.125L5.01 13.5H3.5a1 1 0 0 1-1-1m4.114 1l-1.179-3.143A9.2 9.2 0 0 1 8 10c.93 0 1.8.135 2.565.357L9.387 13.5H6.612Zm4.375 0H12.5a1 1 0 0 0 1-1c0-.204-.22-.809-1.32-1.459a6 6 0 0 0-.223-.125l-.969 2.584ZM8 8.5c-3.85 0-7 2-7 4A2.5 2.5 0 0 0 3.5 15h9a2.5 2.5 0 0 0 2.5-2.5c0-2-3.15-4-7-4"
+                            clipRule="evenodd"></path>
+                    </svg>
+                  )}
+                  <Typography
+                    color="inherit"
+                    className="subpixel-antialiased font-bold text-base"
+                  >
+                   Report Master
                   </Typography>
                 </Button>
               )}

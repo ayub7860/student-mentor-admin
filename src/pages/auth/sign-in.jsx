@@ -97,7 +97,7 @@ export function SignIn () {
   return (
     <div className='animate-fade-in transform flex flex-col items-center'>
       <img
-        alt='Aditya-Anagha'
+        alt='Mentor'
         className='w-32 h-32 object-contain'
         src="/img/logo.png"
       />

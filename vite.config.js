@@ -9,17 +9,17 @@ export default defineConfig({
     react(),
     splitVendorChunkPlugin(),
     VitePWA({
-      buildCacheId: `Aditya-Anangha-${buildVersion}`,
+      buildCacheId: `Mentor-${buildVersion}`,
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Aditya-Anangha',
-        short_name: 'Aditya-Anangha',
+        name: 'Mentor',
+        short_name: 'Mentor',
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
         lang: 'en',
         scope: '/',
-        description: 'Aditya-Anangha',
+        description: 'Mentor',
         form_factor: 'wide',
         theme_color: '#0284c7',
         icons: [

@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react'
 
-const ReportMasterHolder = React.lazy(() => import('../../page-holder/teacher-report-holder'))
+const AdminMasterHolder = React.lazy(() => import('../../page-holder/admin-report-holder'))
 
-export function ReportMaster () {
+export function AdminReportMaster () {
   return (
     <Suspense fallback={(
       <div className='flex flex-col items-center justify-center h-screen'>
@@ -17,9 +17,9 @@ export function ReportMaster () {
       </div>
         )}
     >
-      <ReportMasterHolder />
+      <AdminMasterHolder />
     </Suspense>
   )
 }
 
-export default ReportMaster
+export default AdminReportMaster

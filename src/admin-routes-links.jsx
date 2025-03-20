@@ -6,6 +6,7 @@ import {
   TeacherMaster,
   StudentMaster,
   NoticeMaster,
+  AdminReportMaster,
 } from '@/pages/admin'
 
 export const adminRoutes = [
@@ -46,7 +47,12 @@ export const adminRoutes = [
         name: 'notice master',
         path: '/notice-master',
         element: <NoticeMaster/>
-      },     
+      },
+      {
+        name: 'report master',
+        path: '/report-master',
+        element: <AdminReportMaster/>
+      },      
      
     ]
   }

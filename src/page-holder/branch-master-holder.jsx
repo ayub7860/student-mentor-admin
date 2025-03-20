@@ -45,7 +45,7 @@ import {
     })
   
     React.useEffect(() => {
-      document.title = 'Aditya-Anangha | Branch Master'
+      document.title = 'Mentor | Branch Master'
       getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
     }, [])
   

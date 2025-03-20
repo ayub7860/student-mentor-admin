@@ -36,6 +36,12 @@ export function Dashboard () {
           <div className='max-w-7xl mx-auto py-3 sm:px-4 lg:px-4'>
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
               <div className='grid grid-cols-1 gap-6 lg:grid-cols-3 col-span-3'>
+                <div className='col-span-3'>
+                <div className='bg-blue-400 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
+                  {/* <h2 className='text-3xl font-bold'>{formData.totalCustomerActive + '/' +formData.totalCustomer}</h2> */}
+                 <p className='text-lg text-center  font-bold pt-4'>Notice</p>                  
+                </div>    
+                </div>
                 <div className='bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   {/* <h2 className='text-3xl font-bold'>{formData.totalBranchActive + '/' +formData.totalBranch}</h2> */}
                   <p className='text-sm font-bold pt-4'>Total Student</p>                 

@@ -23,13 +23,13 @@ export function ProfileHolder () {
     email: ''
   })
   React.useEffect(() => {
-    document.title = 'Aditya-Anangha | My Profile'
+    document.title = 'Mentor | My Profile'
     getUpdatedDetails()
   }, [])
 
   const getUpdatedDetails = () => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/api/adminProfileApi/getMyProfile`)
+      .get(`${import.meta.env.VITE_API_URL}/api/adminApi/getMyProfile`)
       .then((response) => {
         if (response.status === 200) {
           const { personName, mobile, email } = response.data
@@ -55,16 +55,19 @@ export function ProfileHolder () {
     <div className='animate-fade-in transform'>
       <div className='relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(/img/login-background.webp)] bg-cover bg-center'>
         <div className='absolute inset-0 h-full w-full bg-blue-500/50' />
+        <Typography className='mb-1 p-6' color='white' variant='h5'>
+          Welcome {profileDetails.name}
+        </Typography>
       </div>
-      <Card className='mx-3 -mt-16 mb-6 lg:mx-4'>
+      <Card className='mx-3 -mt-52 mb-6 lg:mx-4'>
         <CardBody className='p-4'>
           <div className='mb-10 flex items-center justify-between gap-6'>
             <div className='flex items-center gap-6'>
               <Avatar
-                  alt='Aditya-Anangha'
-                  className='rounded-lg shadow-lg shadow-blue-gray-500/40'
-                  size='xl'
-                  src='/img/staff.webp'
+                  alt='img'
+                  className='rounded-lg  shadow-lg shadow-blue-gray-500/40'
+                  size='xxl'
+                  src='/img/logo.png'
               />
               <div>
                 <Typography className='mb-1' color='blue-gray' variant='h5'>

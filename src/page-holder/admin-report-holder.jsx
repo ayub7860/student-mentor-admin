@@ -18,9 +18,8 @@ import {
   import { formatDate } from '@/hooks/formatDate.js'
   dayjs.extend(customParseFormat)
   
-  const Add = React.lazy(() => import('../page-sections/teacherStudent/add'))
-  const Edit = React.lazy(() => import('../page-sections/teacherStudent/edit'))
-  const View = React.lazy(() => import('../page-sections/teacherReport/view'))
+  const Add = React.lazy(() => import('../page-sections/studentReport/add'))
+  const Edit = React.lazy(() => import('../page-sections/studentReport/edit'))
 
   export default function TeacherMasterHolder () {
     const navigate = useNavigate()
@@ -46,7 +45,7 @@ import {
     })
   
     React.useEffect(() => {
-      document.title = 'Mentor | Student Master'
+      document.title = 'Mentor | Report Master'
       getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
     }, [])
   
@@ -68,7 +67,7 @@ import {
     const refreshTableData = () => { getTableRecordByPage(1, tableProp.perPage, tableProp.orderBy, tableProp.orderDirection, tableProp.searchValue) }
     const getTableRecordByPage = (currentPage, perPage, orderBy, orderDirection, searchValue) => {
       axios
-        .post(`${import.meta.env.VITE_API_URL}/api/teacherApi/getTableReport`, {
+        .post(`${import.meta.env.VITE_API_URL}/api/adminApi/getTableReport`, {
           currentPage,
           perPage,
           orderBy,
@@ -181,7 +180,7 @@ import {
           <CardHeader className='mb-4 p-3' color={sidenavColor} variant='gradient'>
             <div className='flex flex-col md:flex-row justify-between'>
               <Typography color='white' variant='h6'>
-                Student Master
+                Weekly Report Master
               </Typography>
               <div className='flex flex-col md:flex-row gap-2'>
                 <div className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800 rounded-md border-0'>
@@ -199,7 +198,7 @@ import {
                         color='white' size='sm' variant='outlined' onClick={event => { event.preventDefault(); setIsAddOpen(true) }}
                     >
                       <i className='fas fa-plus self-center pr-1' />
-                      ADD STUDENT
+                      ADD Report
                     </Button> */}
                     <>
                         <Button
@@ -229,7 +228,7 @@ import {
                     <TableHeaderCell key='studentName' columnName='studentName' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Student Name'
-                    />   
+                    />
                     <TableHeaderCell key='fromDate' columnName='fromDate' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='From Date'
@@ -249,7 +248,7 @@ import {
                     <TableHeaderCell key='isApprovedByTeacher' columnName='isApprovedByTeacher' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Approved By Teacher'
-                    />                             
+                    />                                   
                     <TableHeaderCell key='status' columnName='status' handleOrderBy={handleOrderBy}
                         isOrderByAvailable={true} orderBy={tableProp.orderBy}
                         orderDirection={tableProp.orderDirection} text='Status'
@@ -305,16 +304,16 @@ import {
                                         {rowObj.srno}.
                                       </Typography>
                                     <>
-                                        <Tooltip className='text-xs p-1' content='company details'>
+                                        {/* <Tooltip className='text-xs p-1' content='company details'>
                                             <Typography
                                                 as='button'
                                                 className='text-base font-semibold text-blue-600'
                                                 onClick={event => { event.preventDefault(); handleEdit(rowObj) }}
                                               >
-                                                <i className="fas fa-eye" />
+                                                <i className="fas fa-edit" />
                                               </Typography>
-                                          </Tooltip>
-                                          {rowObj.isCompanyApproved === 2 && rowObj.isCompanyApproved === 3 &&
+                                          </Tooltip> */}
+                                          {/* {rowObj.isCompanyApproved === 2 && rowObj.isCompanyApproved === 3 &&
                                           <Tooltip className='text-xs p-1' content='Approved Company'>
                                             <Typography
                                                 as='button'
@@ -324,25 +323,25 @@ import {
                                                 <i className="fas fa-check" />
                                               </Typography>
                                           </Tooltip>
-                                          }
+                                          } */}
                                         {/* <TableStatusButton changeStatus={changeStatus} rowObj={rowObj} /> */}
                                       </>
                                   </div>
                               </td>
-                            <TableCell text={rowObj.studentName} />
+                              <TableCell text={rowObj.studentName} />
                             <TableCell text={rowObj.fromDate} />
                             <TableCell text={rowObj.toDate} />  
                             <TableCell text={rowObj.task} />    
                             <TableCell text={rowObj.description} />                        
                             <td className='py-1 px-2 border-b border-blue-gray-50'>
-                                <TableCell text={rowObj.teacherName} />      
+                                <TableCell text={rowObj.teacherName} />
                                 <Chip
                                     className='py-0.5 px-2 text-[11px] font-medium'
                                     color={rowObj.isApprovedByTeacher === 1 ? 'green' : rowObj.isApprovedByTeacher === 2 ? 'red' : 'yellow'}
                                     value={rowObj.isApprovedByTeacher === 1 ? 'Approved' : rowObj.isApprovedByTeacher === 2 ? 'Not Approved' : 'Pending..'}
                                     variant='gradient'
-                                />
-                            </td>
+                                  />
+                              </td>
                             <td className='py-1 px-2 border-b border-blue-gray-50'>
                                 <Chip
                                     className='py-0.5 px-2 text-[11px] font-medium'
@@ -374,8 +373,7 @@ import {
         </Card>
         <Suspense fallback={<div />}>
           <Add isAddOpen={isAddOpen} refreshTableData={refreshTableData} setIsAddOpen={setIsAddOpen} />
-          {/* <Edit isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} /> */}
-          <View isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} />
+          <Edit isEditOpen={isEditOpen} refreshTableData={refreshTableData} selectedRecord={selectedRecord} setIsEditOpen={setIsEditOpen} />
         </Suspense>
       </div>
     )

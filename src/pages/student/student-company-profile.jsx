@@ -7,9 +7,9 @@ export function StudentCompanyProfileMaster () {
     <Suspense fallback={(
       <div className='flex flex-col items-center justify-center h-screen'>
         <img
-            alt='Aditya-Anangha'
+            alt='img'
             className='w-48 h-18 object-contain mb-8 animate-bounce'
-            src='/img/staff.webp'
+            src='/img/logo.png'
         />
         <div className='loading-text'>
           Loading, please wait...

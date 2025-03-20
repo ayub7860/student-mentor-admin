@@ -45,7 +45,7 @@ export function UserMasterHolder () {
   })
 
   React.useEffect(() => {
-    document.title = 'Aditya-Anangha | User Master'
+    document.title = 'Mentor | User Master'
     getTableRecordByPage(1, 50, 'createdAt', 'desc', '')
   }, [])
 

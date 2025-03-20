@@ -35,9 +35,10 @@ export function StudentSidenav () {
       >
         <Link className='flex items-center py-2 px-2 w-10/12' to={`/${layout}/dashboard`}>
           <img
-            src="/img/staff.webp"
-            className="h-full w-full object-cover bg-white rounded-md"
-            alt="Aditya-Anangha"/>
+            src="/img/logo.png"
+            className="h-20 w-20 object-fit object-cover bg-white rounded-md"
+            alt="img"/>
+            <p className='px-2'>Mentor</p>
         </Link>
         <IconButton
           className='h-full grid rounded-br-none rounded-tl-none self-center w-2/12'
