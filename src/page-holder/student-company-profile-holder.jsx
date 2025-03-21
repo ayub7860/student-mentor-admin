@@ -76,6 +76,7 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
           if (response.status === 200) {
             setFormData({ 
               companyName: response.data.studentTblObj.companyName,
+              isCompanyApproved: response.data.studentTblObj.isCompanyApproved,
               companyLocation: response.data.studentTblObj.companyLocation,
               studentName: response.data.studentTblObj.name,
               studentEmail: response.data.studentTblObj.email,
