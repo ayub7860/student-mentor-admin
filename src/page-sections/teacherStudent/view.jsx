@@ -18,6 +18,7 @@ import { validateFormData } from '@/hooks/validation.js'
 import { handleError } from '@/hooks/errorHandling.js'
 import { useNavigate } from 'react-router-dom'
 import { CancelButton, UpdateButton } from '@/widgets/components/index.js'
+import dayjs from 'dayjs'
 
 export default function Edit (props) {
   const navigate = useNavigate()
@@ -40,6 +41,7 @@ export default function Edit (props) {
       setFormData({
         id: props.selectedRecord.id,
         companyName: props.selectedRecord.companyName,
+        companyLocation: props.selectedRecord.companyLocation,
         companyDescription: props.selectedRecord.companyDescription,
         projectName: props.selectedRecord.projectName,
         projectDescription: props.selectedRecord.projectDescription,
@@ -116,8 +118,8 @@ export default function Edit (props) {
                 <Typography>Company Location : {formData.companyLocation}</Typography>
                 <Typography>Project Name : {formData.projectName}</Typography>
                 <Typography>Project Description : {formData.projectDescription}</Typography>
-                <Typography>Internship Joining Date : {formData.joiningDate}</Typography>
-                <Typography>Internship End Date : {formData.endDate}</Typography>
+                <Typography>Internship Joining Date : {dayjs(formData.joiningDate).format("YYYY-MM-DD h:mm A")}</Typography>
+                <Typography>Internship End Date : {dayjs(formData.endDate).format("YYYY-MM-DD h:mm A")}</Typography>
 
                 <div className='min-h-screen'>
                     {formData.internshipLetter

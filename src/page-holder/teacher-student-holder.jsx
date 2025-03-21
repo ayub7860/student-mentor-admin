@@ -314,7 +314,7 @@ import {
                                                 <i className="fas fa-eye" />
                                               </Typography>
                                           </Tooltip>
-                                          {rowObj.isCompanyApproved === 2 && rowObj.isCompanyApproved === 3 &&
+                                          {rowObj.isCompanyApproved === 2 || rowObj.isCompanyApproved === 3 &&
                                           <Tooltip className='text-xs p-1' content='Approved Company'>
                                             <Typography
                                                 as='button'

@@ -1,6 +1,7 @@
 import {
   Dashboard,
   NoticeMaster,
+  ProfileMaster,
   StudentCompanyProfileMaster,
   StudentReportMaster,
   // Profile,
@@ -29,7 +30,12 @@ export const studentRoutes = [
         name: 'report master',
         path: '/student-report-master',
         element: <StudentReportMaster/>
-      },  
+      },
+       {
+              name: 'profile',
+              path: '/profile',
+              element: <ProfileMaster/>
+            } 
     ]
   }
 ]

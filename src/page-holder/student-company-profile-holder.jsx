@@ -74,20 +74,18 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
         .get(`${import.meta.env.VITE_API_URL}/api/studentApi/getMyProfile`)
         .then((response) => {
           if (response.status === 200) {
-            const { personName, mobile, email } = response.data
-            const name = `${personName}`
             setFormData({ 
-              companyName: response.data.companyName,
-              companyLocation: response.data.companyLocation,
-              studentName: response.data.name,
-              studentEmail: response.data.email,
-              mobile: response.data.mobile,
-              projectName: response.data.projectName,
-              projectDescription: response.data.projectDescription,
-              joiningDate: response.data.joiningDate,
-              endDate: response.data.endDate,
-              internshipLetter: response.data.internshipLetter,
-              projectLetter: response.data.projectLetter,
+              companyName: response.data.studentTblObj.companyName,
+              companyLocation: response.data.studentTblObj.companyLocation,
+              studentName: response.data.studentTblObj.name,
+              studentEmail: response.data.studentTblObj.email,
+              mobile: response.data.studentTblObj.mobile,
+              projectName: response.data.studentTblObj.projectName,
+              projectDescription: response.data.studentTblObj.projectDescription,
+              joiningDate: response.data.studentTblObj.joiningDate,
+              endDate: response.data.studentTblObj.endDate,
+              internshipLetter: response.data.studentTblObj.internshipLetter,
+              projectLetter: response.data.studentTblObj.projectLetter,
             })
           }
         })
@@ -259,17 +257,17 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
                     <p className="text-gray-700">
                       <strong>Name:</strong>{" "}
                       {editMode ? (
-                        <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="border p-2 w-full" />
+                        <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.companyName
+                        (formData.companyName || 'N/A')
                       )}
                     </p>
                     <p className="text-gray-700">
                       <strong>Location:</strong>{" "}
                       {editMode ? (
-                        <input type="text" name="companyLocation" value={formData.companyLocation} onChange={handleChange} className="border p-2 w-full" />
+                        <input type="text" name="companyLocation" value={formData.companyLocation} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.companyLocation
+                        formData.companyLocation || 'N/A'
                       )}
                     </p>
                   </div>
@@ -297,17 +295,17 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
                     <p className="text-gray-700">
                       <strong>Project Name:</strong>{" "}
                       {editMode ? (
-                        <input type="text" name="projectName" value={formData.projectName} onChange={handleChange} className="border p-2 w-full" />
+                        <input type="text" name="projectName" value={formData.projectName} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.projectName
+                        formData.projectName || 'N/A'
                       )}
                     </p>
                     <p className="text-gray-700">
                       <strong>Description:</strong>{" "}
                       {editMode ? (
-                        <textarea name="projectDescription" value={formData.projectDescription} onChange={handleChange} className="border p-2 w-full" />
+                        <textarea name="projectDescription" value={formData.projectDescription} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.projectDescription
+                        formData.projectDescription || 'N/A'
                       )}
                     </p>
                   </div>
@@ -318,17 +316,17 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
                     <p className="text-gray-700">
                       <strong>Joining Date:</strong>{" "}
                       {editMode ? (
-                        <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="border p-2 w-full" />
+                        <input type="date" name="joiningDate" value={formData.joiningDate} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.joiningDate
+                        formData.joiningDate || 'N/A'
                       )}
                     </p>
                     <p className="text-gray-700">
                       <strong>End Date:</strong>{" "}
                       {editMode ? (
-                        <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} className="border p-2 w-full" />
+                        <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} className="border border-gray-700 rounded-lg p-2 w-full" />
                       ) : (
-                        formData.endDate
+                        formData.endDate || 'N/A'
                       )}
                     </p>
                   </div>
