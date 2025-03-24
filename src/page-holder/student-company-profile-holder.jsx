@@ -20,7 +20,8 @@ import {
 import { validateFormData } from '@/hooks/validation'
 import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fileValidationUtils'
   dayjs.extend(customParseFormat)
-  
+import { saveAs } from "file-saver";
+
   const Add = React.lazy(() => import('../page-sections/student/add'))
   const Edit = React.lazy(() => import('../page-sections/student/edit'))
   const View = React.lazy(() => import('../page-sections/image/view'))
@@ -200,8 +201,10 @@ import { checkDocumentMimeType, checkFileSize, maxSelectFile } from '@/hooks/fil
       }
     
       const downloadDocument = (obj) => {
-        setSelectedRecord(obj)
-        setIsViewOpen(true)
+        // setSelectedRecord(obj)
+        // setIsViewOpen(true)
+        // saveAs("https://example.com/sample.pdf", "sample.pdf"); // URL & File Name
+        saveAs(`${import.meta.env.VITE_API_URL}/api/publicApi/downloadDocument?name=${obj}`)
       }
     
     return (

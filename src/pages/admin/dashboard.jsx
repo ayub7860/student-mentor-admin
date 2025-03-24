@@ -41,11 +41,11 @@ export function Dashboard () {
                   <p className='text-lg text-center  font-bold pt-4'>Welcome To Department System</p>                  
                 </div> 
                 </div>
-                <div className='bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
+                <div onClick={ () => navigate('/admin/teacher-master')} className='cursor-pointer bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   <h2 className='text-3xl font-bold'>{formData.totalTeacher}</h2>
                   <p className='text-sm font-bold pt-4'>Total Teachers</p>                 
                 </div>
-                <div className='bg-yellow-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
+                <div onClick={ () => navigate('/admin/student-master')} className='cursor-pointer bg-yellow-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   <h2 className='text-3xl font-bold'>{formData.totalStudent}</h2>
                   <p className='text-sm font-bold pt-4'>Total Student</p>                 
                 </div>

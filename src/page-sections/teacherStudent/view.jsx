@@ -107,6 +107,10 @@ export default function Edit (props) {
         }
       }
   }
+  
+   const downloadDocument = (obj) => {         
+     saveAs(`${import.meta.env.VITE_API_URL}/api/publicApi/downloadDocument?name=${obj}`)
+  }
 
   return (
     <Fragment className='bg-white'>
@@ -120,8 +124,31 @@ export default function Edit (props) {
                 <Typography>Project Description : {formData.projectDescription}</Typography>
                 <Typography>Internship Joining Date : {dayjs(formData.joiningDate).format("YYYY-MM-DD h:mm A")}</Typography>
                 <Typography>Internship End Date : {dayjs(formData.endDate).format("YYYY-MM-DD h:mm A")}</Typography>
-
-                <div className='min-h-screen'>
+                <div>
+                <Typography>Intership Letter : 
+                  {formData.internshipLetter ?
+                    <> 
+                    <span className='text-green-500 '> Uploaded </span> 
+                    <Button onClick={() => downloadDocument(formData.internshipLetter)}>Download</Button>
+                    </>
+                  : 
+                    <span className='text-red-500 '> Not Uploaded </span>
+                  }
+                </Typography>
+                </div>
+                <div>
+                <Typography>Project Letter : 
+                  {formData.internshipLetter ?
+                    <> 
+                    <span className='text-green-500 '> Uploaded </span> 
+                    <Button onClick={() => downloadDocument(formData.projectLetter)}>Download</Button>
+                    </>
+                  : 
+                    <span className='text-red-500 '> Not Uploaded </span>
+                  }
+                </Typography>
+                </div>
+                {/* <div className='min-h-screen'>
                     {formData.internshipLetter
                     ? (
                         <iframe 
@@ -131,8 +158,8 @@ export default function Edit (props) {
                         />
                         )
                     : null}
-                </div>
-                <div className='min-h-screen'>
+                </div> */}
+                {/* <div className='min-h-screen'>
                     {formData.projectLetter
                     ? (
                         <iframe 
@@ -142,7 +169,7 @@ export default function Edit (props) {
                         />
                         )
                     : null}
-                </div>
+                </div> */}
 
             </div>
         </DialogBody>

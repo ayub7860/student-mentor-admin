@@ -53,7 +53,7 @@ export function Dashboard () {
                   </p>               
                 </div>    
                 </div>
-                <div className='bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
+                <div onClick={ () => navigate('/teacher/student-master')} className='cursor-pointer bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
                   <h2 className='text-3xl font-bold'>{studentCount}</h2>
                   <p className='text-sm font-bold pt-4'>Total Student</p>                 
                 </div>

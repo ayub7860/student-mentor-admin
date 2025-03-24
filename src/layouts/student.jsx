@@ -36,7 +36,7 @@ export function Student () {
       <img
         alt='Login Background'
         className='fixed inset-0 z-0 h-full w-full object-cover brightness-50 blur'
-        src='/img/advita-background.webp'
+        src='\img\ready-back-school.jpg'
       />
       <StudentSidenav/>
       <div
