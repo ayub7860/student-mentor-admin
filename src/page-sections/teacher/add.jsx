@@ -54,6 +54,25 @@ export default function Add (props) {
   }
 
   const submitData = async () => {
+    // ✅ Manual regex validations
+    const { mobile, email, pincode } = formData;
+
+    if (!/^\d{10}$/.test(mobile)) {
+      toast.error('Mobile number must be exactly 10 digits.', { position: 'top-center', theme });
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error('Please enter a valid email address.', { position: 'top-center', theme });
+      return;
+    }
+
+    if (!/^\d{6}$/.test(pincode)) {
+      toast.error('Pincode must be exactly 6 digits.', { position: 'top-center', theme });
+      return;
+    }
+
+  
     const validationRules = [
       { field: 'name', required: true, message: 'Please enter teacher name.' },
       { field: 'mobile', required: true, message: 'Please enter mobile number.' },
@@ -124,6 +143,9 @@ export default function Add (props) {
               name='mobile'
               value={formData.mobile}
               onChange={handleTextChange}
+              onInput={(e) => {
+                e.target.value = e.target.value.slice(0, 10); // ✅ This will limit it to 10 digits
+              }}
             />
             <Input
               type='number'
@@ -132,6 +154,9 @@ export default function Add (props) {
               name='otherNumber'
               value={formData.otherNumber}
               onChange={handleTextChange}
+              onInput={(e) => {
+                e.target.value = e.target.value.slice(0, 10); // ✅ This will limit it to 10 digits
+              }}
             />
             <Input
               required
@@ -149,10 +174,14 @@ export default function Add (props) {
             />
             <Input
               required
+              type='number'
               label='Pincode'
               name='pincode'
               value={formData.pincode}
               onChange={handleTextChange}
+              onInput={(e) => {
+                e.target.value = e.target.value.slice(0, 6); // ✅ This will limit it to 10 digits
+              }}
             />
             <Input
               required

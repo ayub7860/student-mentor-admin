@@ -181,7 +181,7 @@ import {
           <CardHeader className='mb-4 p-3' color={sidenavColor} variant='gradient'>
             <div className='flex flex-col md:flex-row justify-between'>
               <Typography color='white' variant='h6'>
-                Student Master
+                Report Master
               </Typography>
               <div className='flex flex-col md:flex-row gap-2'>
                 <div className='bg-white dark:bg-gradient-to-br from-blue-gray-700 to-blue-gray-800 rounded-md border-0'>
