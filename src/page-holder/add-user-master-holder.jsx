@@ -45,7 +45,20 @@ export default function AddUserMasterHolder (props) {
     })
   }
 
-  const submitData = async () => {
+  // const submitData = async () => {
+     const submitData = async () => {
+        // ✅ Manual regex validations
+        const { mobile, email, pincode } = formData;
+    
+        if (!/^\d{10}$/.test(mobile)) {
+          toast.error('Mobile number must be exactly 10 digits.', { position: 'top-center', theme });
+          return;
+        }
+    
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          toast.error('Please enter a valid email address.', { position: 'top-center', theme });
+          return;
+        }
     const validationRules = [
       { field: 'userName', message: 'Please enter username.' },
       // { field: 'password', message: 'Please enter password.' },
@@ -158,7 +171,11 @@ export default function AddUserMasterHolder (props) {
             <Input required label='User Name' name='userName' value={userName} onChange={handleTextChange} />
             <Input required label="Password" name="password" value={password} onChange={handleTextChange}/>
             <Input required label='Person Name' name='personName' value={personName} onChange={handleTextChange} />
-            <Input required label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} />
+            <Input required label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} 
+              onInput={(e) => {
+                e.target.value = e.target.value.slice(0, 10); // ✅ This will limit it to 10 digits
+              }}
+            />
             <div className='self-end'>
               <Input label='Email' name='email' value={email} onChange={handleTextChange} />
             </div>
