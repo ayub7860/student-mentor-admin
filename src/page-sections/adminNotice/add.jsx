@@ -38,10 +38,23 @@ export default function Add (props) {
   }
 
   const handleTextChange = (event) => {
+    // setFormData({
+    //   ...formData,
+    //   [event.target.name]: event.target.value
+    // })
+    const { name, value } = event.target;
+
+    // Fields that should only accept letters and spaces
+    const textOnlyFields = ['title'];
+
+    const newValue = textOnlyFields.includes(name)
+      ? value.replace(/[^a-zA-Z\s]/g, '')
+      : value;
+
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value
-    })
+      [name]: newValue,
+    });
   }
 
   const handleChange = (value) => {

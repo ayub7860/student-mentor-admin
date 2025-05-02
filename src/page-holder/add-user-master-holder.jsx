@@ -39,10 +39,23 @@ export default function AddUserMasterHolder (props) {
   }
 
   const handleTextChange = (event) => {
+    // setFormData({
+    //   ...formData,
+    //   [event.target.name]: event.target.value
+    // })
+    const { name, value } = event.target;
+
+    // Fields that should only accept letters and spaces
+    const textOnlyFields = ['personName'];
+
+    const newValue = textOnlyFields.includes(name)
+      ? value.replace(/[^a-zA-Z\s]/g, '')
+      : value;
+
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value
-    })
+      [name]: newValue,
+    });
   }
 
   // const submitData = async () => {
@@ -169,9 +182,9 @@ export default function AddUserMasterHolder (props) {
         <CardBody className='px-1 md:px-2 lg:px-4 pt-1 pb-2'>
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-3 w-full'>
             <Input required label='User Name' name='userName' value={userName} onChange={handleTextChange} />
-            <Input required label="Password" name="password" value={password} onChange={handleTextChange}/>
+            <Input required type='password' label="Password" name="password" value={password} onChange={handleTextChange}/>
             <Input required label='Person Name' name='personName' value={personName} onChange={handleTextChange} />
-            <Input required label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} 
+            <Input required type='number' label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} 
               onInput={(e) => {
                 e.target.value = e.target.value.slice(0, 10); // ✅ This will limit it to 10 digits
               }}
@@ -180,7 +193,7 @@ export default function AddUserMasterHolder (props) {
               <Input label='Email' name='email' value={email} onChange={handleTextChange} />
             </div>
             <div />
-            <div className='col-span-3'>
+            {/* <div className='col-span-3'>
               <label className='block text-sm font-semibold text-gray-700 pl-1'>
                 Signature
               </label>
@@ -198,7 +211,7 @@ export default function AddUserMasterHolder (props) {
                   <span className='hidden'>
                       <Input
                         ref={fileInputRef}
-                        accept='*/*'
+                        accept='*
                         capture='camera'
                         id='uploadDocument'
                         label='Image'
@@ -240,7 +253,7 @@ export default function AddUserMasterHolder (props) {
                     </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </CardBody>
         <CardFooter className='self-end gap-1'>

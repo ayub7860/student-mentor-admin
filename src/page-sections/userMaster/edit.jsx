@@ -49,10 +49,24 @@ export default function Edit (props) {
   }
 
   const handleTextChange = (event) => {
+    // setFormData({
+    //   ...formData,
+    //   [event.target.name]: event.target.value
+    // })
+
+    const { name, value } = event.target;
+
+    // Fields that should only accept letters and spaces
+    const textOnlyFields = ['personName'];
+
+    const newValue = textOnlyFields.includes(name)
+      ? value.replace(/[^a-zA-Z\s]/g, '')
+      : value;
+
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value
-    })
+      [name]: newValue,
+    });
   }
 
   const handleClose = () => {
@@ -170,14 +184,14 @@ export default function Edit (props) {
         <DialogBody divider className='px-1 md:px-2 lg:px-4 pt-1 pb-2'>
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-3 w-full m-2'>
             <Input required label='User Name' name='userName' value={userName} onChange={handleTextChange} />
-            <Input label="Password" name="password" value={password} onChange={handleTextChange}/>
+            <Input type='password' label="Password" name="password" value={password} onChange={handleTextChange}/>
             <Input required label='Person Name' name='personName' value={personName} onChange={handleTextChange} />
-            <Input required label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} />
+            <Input required type='number' label='Mobile' name='mobile' value={mobile} onChange={handleTextChange} />
             <div className='self-end'>
               <Input label='Email' name='email' value={email} onChange={handleTextChange} />
             </div>
             <div />
-            <div className='col-span-3'>
+            {/* <div className='col-span-3'>
               <label className='block text-sm font-semibold text-gray-700 pl-1'>
                 Signature
               </label>
@@ -195,7 +209,6 @@ export default function Edit (props) {
                   <span className='hidden'>
                       <Input
                         ref={fileInputRef}
-                        accept='*/*'
                         capture='camera'
                         id='uploadDocument'
                         label='Image'
@@ -237,7 +250,7 @@ export default function Edit (props) {
                     </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </DialogBody>
         <DialogFooter className='bg-gray-100'>

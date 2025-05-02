@@ -55,7 +55,18 @@ import { saveAs } from "file-saver";
 
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+      // setFormData({ ...formData, [name]: value });
+      const textOnlyFields = ['companyName', 'companyLocation', 'projectName'];
+
+      // If the field is in the list, remove non-letter characters
+      const newValue = textOnlyFields.includes(name)
+        ? value.replace(/[^a-zA-Z\s]/g, '')
+        : value;
+    
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: newValue,
+      }));
     };
   
     // Handle file uploads
