@@ -46,11 +46,17 @@ export function Dashboard () {
                 <div className='col-span-3'>
                 <div className='bg-white p-6 rounded-lg shadow-2xl text-black' data-aos='fade-left'>
                   <p className='text-lg font-bold '>Notice : </p>
-                  <p className='text-lg font-bold '>{noticeData.title}</p>      
-                  <p className='text-lg '>{noticeData.description}</p> 
-                  <p className='text-lg font-bold'>
-                    {dayjs(noticeData.updatedAt).format("YYYY-MM-DD h:mm A")}
-                  </p>               
+                  { noticeData ? (
+                    <>
+                      <p className='text-lg font-bold '>{noticeData.title}</p>      
+                      <p className='text-lg '>{noticeData.description}</p> 
+                      <p className='text-lg font-bold'>
+                        {dayjs(noticeData.updatedAt).format("YYYY-MM-DD h:mm A")}
+                      </p>   
+                     </>    
+                  ):(
+                    <p className='text-lg font-bold '>Notice not found</p>
+                  )}        
                 </div>    
                 </div>
                 <div onClick={ () => navigate('/teacher/student-master')} className='cursor-pointer bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>

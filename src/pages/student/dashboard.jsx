@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import 'aos/dist/aos.css'
 import AOS from 'aos'
 import { useNavigate } from 'react-router-dom'
@@ -42,28 +41,19 @@ export function Dashboard () {
                 <div className='col-span-3'>
                 <div className='bg-white p-6 rounded-lg shadow-2xl text-black' data-aos='fade-left'>
                  <p className='text-lg font-bold '>Notice : </p>
-                 <p className='text-lg font-bold '>{noticeData.title}</p>      
-                 <p className='text-lg '>{noticeData.description}</p> 
-                 <p className='text-lg font-bold'>
-                 {dayjs(noticeData.updatedAt).format("YYYY-MM-DD h:mm A")}
-                  </p>
+                 { noticeData ? (
+                  <>
+                    <p className='text-lg font-bold '>{noticeData.title}</p>      
+                    <p className='text-lg '>{noticeData.description}</p> 
+                    <p className='text-lg font-bold'>
+                    {dayjs(noticeData.updatedAt).format("YYYY-MM-DD h:mm A")}
+                      </p>
+                  </>
+                ):(
+                  <p className='text-lg font-bold '>Notice not found</p>
+                )}
                 </div>    
-                </div>
-                {/* <div className='bg-green-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
-                  <p className='text-sm font-bold pt-4'>Total Branch</p>                 
-                </div>
-                <div className='bg-yellow-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
-                  <p className='text-sm font-bold pt-4'>Total Staff</p>                 
-                </div>
-                <div className='bg-gray-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
-                  <p className='text-sm font-bold pt-4'>Total Customer</p>                  
                 </div>                
-                <div className='bg-purple-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
-                  <p className='text-sm font-bold pt-4'>Total Customer Accounts</p>                  
-                </div>
-                <div className='bg-red-800 p-6 rounded-lg shadow-2xl text-white' data-aos='fade-left'>
-                  <p className='text-sm font-bold pt-4'>Total Close Accounts</p>                  
-                </div> */}
               </div>
             </div>
           </div>
